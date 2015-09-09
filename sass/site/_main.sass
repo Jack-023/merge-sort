@@ -1,0 +1,96 @@
+/**
+ * Options
+ */
+
+.options
+	padding: 20px
+	position: absolute
+	top: 0
+	left: 0
+	width: 200px
+	height: 100%
+	background: #fff
+	border-right: 5px solid rgba($primary, 0.4)
+	z-index: 20
+
+	form.row.collapse
+		.columns
+			&:not(:last-child)
+				&>*
+					border-right: 0
+					border-top-right-radius: 0
+					border-bottom-right-radius: 0
+			&:last-child
+				&>*
+					border-top-left-radius: 0
+					border-bottom-left-radius: 0
+
+/**
+ * Editor
+ */
+.editor
+	shape-rendering: crispEdges
+	position: relative
+	z-index: 2
+	display: block
+	width: 100%
+	height: 100%
+	fill: $light
+
+	g
+		&.node
+			cursor: pointer
+			color: $primary
+
+			transition: 0.5s transform ease
+
+			&.dragging
+				filter: url(#dragging)
+
+			&.highlight
+				filter: url(#highlight)
+				opacity: 0.9
+
+				rect
+					fill: rgba($light, 1)
+
+			&#head
+				rect:nth-of-type(1), text
+					display: none
+
+			rect
+				fill: $light
+				stroke: $light
+				stroke-width: 2px
+
+				&:nth-of-type(2)
+					fill: rgba(#fff, 0)
+
+			circle
+				shape-rendering: geometricPrecision
+				fill: none
+				stroke: $light
+				stroke-width: 1px
+
+			text
+				alignment-baseline: middle
+				text-anchor: middle
+				font-size: 20px
+				fill: $primary
+
+	path
+		shape-rendering: geometricPrecision
+
+	line, polyline
+		stroke: $light
+		shape-rendering: geometricPrecision
+
+		&.pointer
+			stroke-width: 1px
+			marker-end: url(#triangle)
+
+	polyline
+		fill: none
+
+	marker
+		fill: $light
