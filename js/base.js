@@ -7,7 +7,7 @@ var head = undefined;
 // Defaults
 var def = {};
 
-def.nodeWidth = 110;
+def.nodeWidth = 440;
 def.nodeHeight = 55;
 
 def.attrGroup = {
