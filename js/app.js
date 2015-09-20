@@ -1,110 +1,47 @@
-// var head = new node('', 200, 50);
-//
-// n[0] = new node(40, 250, 150);
-// head.connect(n[0]);
-// head.group.attr({
-// 	id: 'head'
-// })
-//
-//
-// n[1] = new node(16, 400, 150);
-// n[0].connect(n[1]);
 
+var s = Snap(".editor");
 
-// Refresh nodes for any state updates
-function refreshNodes() {
-	head.refresh();
+var list = s.group();
+list.attr({
+    class: 'list'
+});
 
-	n.forEach(function(node) {
-		node.refresh();
-	});
+var editorHeight = $(".editor").height();
+var editorWidth = $(".editor").width();
+var optionsWidth = $(".options").width();
+
+var listTop = editorHeight/10;
+var listCenterX = editorWidth/2 + optionsWidth;
+var cellSize = 80; //both width and height
+
+for (i = 0; i < 8; i++)
+{
+  //i-5 is based off the fact that the we need it to be 4 left of center but we
+  //are working from the left side.
+  var newRect = s.rect(listCenterX + (cellSize * (i-5)) , editorHeight/10, cellSize, cellSize);
+  newRect.appendTo(list);
 }
 
 
-
-// $('#insert').submit(function(e) {
-// 	e.preventDefault();
-//
-// 	var text = $('#insert-text');
-// 	var val = parseInt(text.val());
-// 	var x = e.clientX - def.nodeWidth/2;
-// 	var y = e.clientY - def.nodeHeight/2;
-// 	var c = n.length;
-//
-// 	text.val(Math.floor((Math.random() * 99) + 1));
-//
-// 	n[c] = new node(val, 400, 50);
-// 	n[c].connect(head.next);
-// 	head.connect(n[c]);
-// });
-//
-// $('#search').submit(function(e) {
-// 	e.preventDefault();
-//
-// 	var value = parseInt($('#search-text').val());
-// 	current = head;
-// 	current.highlight = true;
-//
-// 	refreshNodes();
-//
-// 	var searching = setInterval(function() {
-// 		current.highlight = false;
-// 		console.log(current);
-//
-// 		if ( current.next ) {
-// 			current = current.next;
-// 			current.highlight = true;
-//
-// 			refreshNodes();
-//
-// 			// Found the value
-// 			if ( current.value == value ) {
-// 				alert('Found');
-// 				clearInterval(searching);
-// 				current.highlight = false;
-// 			}
-// 		} else {
-// 			alert('Not found');
-// 			clearInterval(searching);
-//
-// 			refreshNodes();
-// 		}
-//
-// 	}, 500);
-// });
-//
-// $('#remove').submit(function(e) {
-// 	e.preventDefault();
-//
-// 	var searchFor = parseInt($('#search-text').val());
-// 	current = head;
-//
-// 	current.highlight = true;
-//
-// 	refreshNodes();
-//
-// 	var searching = setInterval(function() {
-// 		current.highlight = false;
-// 		console.log(current);
-//
-// 		if ( current.next ) {
-// 			current = current.next;
-// 			current.highlight = true;
-//
-// 			refreshNodes();
-//
-// 			// Found the value
-// 			if ( current.value == searchFor ) {
-// 				alert('Found');
-// 				clearInterval(searching);
-// 				current.highlight = false;
-// 			}
-// 		} else {
-// 			alert('Not found');
-// 			clearInterval(searching);
-//
-// 			refreshNodes();
-// 		}
-//
-// 	}, 500);
+// var rect1 = s.rect(editorWidth/5, editorHeight/10, 80, 80);
+// rect1.appendTo(list);
+// var rect2 = s.rect(editorWidth/5 + 80, editorHeight/10, 80, 80);
+// rect2.appendTo(list);
+// var rect3 = s.rect(editorWidth/5 + 80*2, editorHeight/10, 80, 80);
+// rect3.appendTo(list);
+// var rect4 = s.rect(editorWidth/5 + 80*3, editorHeight/10, 80, 80);
+// rect4.appendTo(list);
+// var rect5 = s.rect(editorWidth/5 + 80*4, editorHeight/10, 80, 80);
+// rect5.appendTo(list);
+// var rect6 = s.rect(editorWidth/5 + 80*5, editorHeight/10, 80, 80);
+// rect6.appendTo(list);
+// var rect7 = s.rect(editorWidth/5 + 80*6, editorHeight/10, 80, 80);
+// rect7.appendTo(list);
+// var rect8 = s.rect(editorWidth/5 + 80*7, editorHeight/10, 80, 80);
+// rect8.appendTo(list);
+// By default its black, lets change its attributes
+// mainList.attr({
+// "fill": "rgba(0,0,0,0)",
+// "stroke-width": "5px",
+// "stroke": "#fff",
 // });
