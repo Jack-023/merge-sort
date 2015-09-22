@@ -12,41 +12,37 @@ var optionsWidth = $(".options").width();
 
 var listTop = editorHeight/10;
 var listCenterX = editorWidth/2 + optionsWidth;
-var cellSize = 60; //both width and height
+var cellSize = editorWidth*0.036458333333333336; //both width and height
+// console.log(cellSize/editorWidth);
+var drawList = function(center, length, size, depth) {
 
-for (i = 0; i < 8; i++)
-{
-  //i-5 is based off the fact that the we need it to be 4 left of center but we
-  //are working from the left side.
-  var newRect = s.rect(listCenterX + (cellSize * (i-5)) , editorHeight/10, cellSize, cellSize);
-  newRect.appendTo(list);
+  for (i = 0; i < length; i++)
+  {
+    //i-5 is based off the fact that the we need it to be 4 left of center but we
+    //are working from the left side.
+    var newRect = s.rect(center + (size * (i-(length/2 + 1))) , (depth-.5)*editorHeight/4, size, size);
+    newRect.appendTo(list);
+  }
+
+
 }
+drawList(listCenterX, 8, cellSize, 1);
 
+drawList(3*listCenterX/5, 4, cellSize, 2);
+drawList(7*listCenterX/5, 4, cellSize, 2);
 
-for (i = 0; i < 4; i++)
-{
-  //i-5 is based off the fact that the we need it to be 4 left of center but we
-  //are working from the left side.
-  var newRect = s.rect(listCenterX/2 + (cellSize * (i-3)) , 3 * editorHeight / 8, cellSize, cellSize);
-  newRect.appendTo(list);
-}
+drawList(2*listCenterX/5, 2, cellSize, 3);
+drawList(4*listCenterX/5, 2, cellSize, 3);
+drawList(6*listCenterX/5, 2, cellSize, 3);
+drawList(8*listCenterX/5, 2, cellSize, 3);
 
-for (i = 0; i < 4; i++)
-{
-  //i-5 is based off the fact that the we need it to be 4 left of center but we
-  //are working from the left side.
-  var newRect = s.rect(3*listCenterX/2 + (cellSize * (i-3)) , 3 * editorHeight / 8, cellSize, cellSize);
-  newRect.appendTo(list);
-}
+drawList(1.5*listCenterX/5, 1, cellSize, 4);
+drawList(2.5*listCenterX/5, 1, cellSize, 4);
+drawList(3.5*listCenterX/5, 1, cellSize, 4);
+drawList(4.5*listCenterX/5, 1, cellSize, 4);
+drawList(5.5*listCenterX/5, 1, cellSize, 4);
+drawList(6.5*listCenterX/5, 1, cellSize, 4);
+drawList(7.5*listCenterX/5, 1, cellSize, 4);
+drawList(8.5*listCenterX/5, 1, cellSize, 4);
 
-// var rect1 = s.rect(editorWidth/5, editorHeight/10, 80, 80);
-// rect1.appendTo(list);
-// var rect2 = s.rect(editorWidth/5 + 80, editorHeight/10, 80, 80);
-// rect2.appendTo(list);
-
-// By default its black, lets change its attributes
-// mainList.attr({
-// "fill": "rgba(0,0,0,0)",
-// "stroke-width": "5px",
-// "stroke": "#fff",
-// });
+console.log(list)
