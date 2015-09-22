@@ -43,24 +43,3 @@ drawList(9*editorWidth/16 + optionsWidth, 1, cellSize, 4);
 drawList(11*editorWidth/16 + optionsWidth, 1, cellSize, 4);
 drawList(13*editorWidth/16 + optionsWidth, 1, cellSize, 4);
 drawList(15*editorWidth/16 + optionsWidth, 1, cellSize, 4);
-
-// drawList(editorCenter, 8, cellSize, 1);
-//
-// drawList(3*editorCenter/5, 4, cellSize, 2);
-// drawList(7*editorCenter/5, 4, cellSize, 2);
-//
-// drawList(2*editorCenter/5, 2, cellSize, 3);
-// drawList(4*editorCenter/5, 2, cellSize, 3);
-// drawList(6*editorCenter/5, 2, cellSize, 3);
-// drawList(8*editorCenter/5, 2, cellSize, 3);
-//
-// drawList(1.5*editorCenter/5, 1, cellSize, 4);
-// drawList(2.5*editorCenter/5, 1, cellSize, 4);
-// drawList(3.5*editorCenter/5, 1, cellSize, 4);
-// drawList(4.5*editorCenter/5, 1, cellSize, 4);
-// drawList(5.5*editorCenter/5, 1, cellSize, 4);
-// drawList(6.5*editorCenter/5, 1, cellSize, 4);
-// drawList(7.5*editorCenter/5, 1, cellSize, 4);
-// drawList(8.5*editorCenter/5, 1, cellSize, 4);
-
-console.log(list)
