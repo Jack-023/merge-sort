@@ -5917,7 +5917,7 @@ button.hollow.info:hover, .button.hollow.info:hover {
 }
 
 .editor g.list {
-  cursor: pointer;
+  cursor: default;
   color: #F05B66;
 }
 

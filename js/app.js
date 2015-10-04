@@ -25,6 +25,54 @@ var drawList = function(center, length, size, depth) {
 
 }
 
+// var addEvent = function(object, type, callback) {
+//     if (object == null || typeof(object) == 'undefined') return;
+//     if (object.addEventListener) {
+//         object.addEventListener(type, callback, false);
+//     } else if (object.attachEvent) {
+//         object.attachEvent("on" + type, callback);
+//     } else {
+//         object["on"+type] = callback;
+//     }
+// };
+//
+// addEvent(window, "resize", updateWindow);
+//
+// function updateWindow(){
+//   list.forEach(function (item, index, array) {
+//     item.transform('SeditorWidth*0.040697674418604654');
+//   }
+// }
+
+//the following three functions are for dragging
+var move = function(dx,dy) {
+        this.attr({
+                    transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
+                });
+}
+
+var start = function() {
+        this.data('origTransform', this.transform().local );
+}
+var stop = function() {
+        console.log('finished dragging');
+}
+
+
+var testCell = s.rect(300, 100, cellSize, cellSize);
+var testNumber = s.text(300 + (cellSize * .8 /2), 100, "5");
+testNumber.attr('font-size', cellSize * .8);
+
+//testNumber.attr('text-align', 'center');
+
+var testN = s.group(testCell, testNumber);
+
+testN.drag(move, start, stop);
+
+testCell.attr('fill', 'rgba(255, 255, 255, 0)');
+
+
+
 drawList(editorWidth/2 + optionsWidth, 8, cellSize, 1);
 
 drawList(1*editorWidth/4 + optionsWidth, 4, cellSize, 2);
