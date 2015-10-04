@@ -60,8 +60,9 @@ var stop = function() {
 
 
 var testCell = s.rect(300, 100, cellSize, cellSize);
-var testNumber = s.text(300 + (cellSize * .8 /2), 100, "5");
+var testNumber = s.text(300 + (cellSize * 1 /2), 100 + (cellSize * 3 / 4), "5");
 testNumber.attr('font-size', cellSize * .8);
+testNumber.attr('text-anchor', 'middle');
 
 //testNumber.attr('text-align', 'center');
 
@@ -70,7 +71,6 @@ var testN = s.group(testCell, testNumber);
 testN.drag(move, start, stop);
 
 testCell.attr('fill', 'rgba(255, 255, 255, 0)');
-
 
 
 drawList(editorWidth/2 + optionsWidth, 8, cellSize, 1);
