@@ -1,16 +1,17 @@
 
 var s = Snap(".editor");
 
-var list = s.group();
-list.attr({
-    class: 'list'
-});
+// var list = s.group();
+// list.attr({
+//     class: 'list'
+// });
 var editorHeight = $(window).height();
 var optionsWidth = $(".options").width() + 45;
 var editorWidth = $(window).width() - optionsWidth;
 var listTop = editorHeight/10;
 var cellSize = editorWidth*0.040697674418604654; //both width and height
 //0.040697674418604654 is calulated from 70 cell size at my default size
+//(1920x1080p fullscreen)
 
 var allLists = [];
 
@@ -45,31 +46,32 @@ var drawNumbers = function() {
    * Using Durstenfeld shuffle algorithm.
    */
  var ints = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    for (var i = ints.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = ints[i];
-        ints[i] = ints[j];
-        ints[j] = temp;
-    }
+  for (var i = ints.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = ints[i];
+    ints[i] = ints[j];
+    ints[j] = temp;
+  }
 
-  for (i = 0; i < 8; i++)
-  {
+  for (i = 0; i < 8; i++) {
     drawNumber(editorWidth/2 + optionsWidth + (cellSize * (i-(8/2))), (1-.5)*editorHeight/4, cellSize, ints[i]);
   }
 }
 
 //the following three functions are for dragging
-var move = function(dx,dy) {
-        this.attr({
-                    transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
-                });
+var move = function(dx, dy, posX, posY, e) {
+  this.attr({
+    transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
+  });
+  console.log(posX, posY);
+
 }
 
 var start = function() {
-        this.data('origTransform', this.transform().local );
+  this.data('origTransform', this.transform().local );
 }
-var stop = function() {
-        console.log('finished dragging');
+var stop = function(posX, posY) {
+  console.log('finished dragging');
 }
 
 
@@ -94,6 +96,8 @@ allLists.push(drawList(13*editorWidth/16 + optionsWidth, 1, cellSize, 4));
 allLists.push(drawList(15*editorWidth/16 + optionsWidth, 1, cellSize, 4));
 
 drawNumbers();
+
+console.log(allLists);
 // var testCell = s.rect(editorWidth/2 + optionsWidth, 8, cellSize, cellSize);
 // var testNumber = s.text(parseInt(testCell.attr("x"), 10) + (cellSize / 2), parseInt(testCell.attr('y'), 10) + (cellSize * 3 / 4), "5");
 // testNumber.attr('font-size', cellSize * .8);

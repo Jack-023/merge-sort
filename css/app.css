@@ -5809,12 +5809,12 @@ button, .button {
 
 button.hollow, .button.hollow {
   background: none !important;
-  border-color: rgba(0, 112, 149, 0.5);
-  color: #008CBA;
+  border-color: black;
+  color: black;
 }
 
 button.hollow:hover, .button.hollow:hover {
-  color: #007095;
+  color: gray;
   background: rgba(0, 0, 0, 0.05) !important;
 }
 
