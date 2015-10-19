@@ -5796,7 +5796,7 @@ input:not([type]), input[type=text], input[type=password], input[type=date], inp
 }
 
 button, .button {
-  width: 100%;
+  width: 40%;
   padding: 0 10px;
   border-width: 1px;
   line-height: 58px;
@@ -5809,22 +5809,22 @@ button, .button {
 
 button.hollow, .button.hollow {
   background: none !important;
-  border-color: black;
-  color: black;
+  border-color: rgba(0, 0, 0, 0.5);
+  color: #000000;
 }
 
 button.hollow:hover, .button.hollow:hover {
-  color: gray;
-  background: rgba(0, 0, 0, 0.05) !important;
+  color: #000000;
+  background: rgba(0, 0, 0, 0.15) !important;
 }
 
 button.hollow.secondary, .button.hollow.secondary {
-  color: #e7e7e7;
+  color: #000000;
   border-color: rgba(185, 185, 185, 0.5);
 }
 
 button.hollow.secondary:hover, .button.hollow.secondary:hover {
-  color: #b9b9b9;
+  color: #000000;
 }
 
 button.hollow.success, .button.hollow.success {

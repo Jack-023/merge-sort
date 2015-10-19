@@ -13,7 +13,7 @@ input:not([type]), input[type=text], input[type=password], input[type=date], inp
 	border-radius: $radius
 
 button, .button
-	width: 100%
+	width: 40%
 	padding: 0 10px
 	border-width: 1px
 	line-height: 58px
@@ -25,17 +25,17 @@ button, .button
 
 	&.hollow
 		background: none !important
-		border-color: black
-		color: black
+		border-color: rgba($black, 0.5)
+		color: $black
 		&:hover
-			color: gray
-			background: rgba(#000, 0.05) !important
+			color: $black
+			background: rgba(#000, 0.15) !important
 
 		&.secondary
-			color: $secondary-button-bg-color
+			color: $black
 			border-color: rgba($secondary-button-border-color, 0.5)
 			&:hover
-				color: $secondary-button-bg-hover
+				color: $black
 
 		&.success
 			color: $success-button-bg-color
