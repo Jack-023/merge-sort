@@ -15,19 +15,32 @@ var currentStep = 0;
 
 var listOrder = [];
 
-var allNumberBoxes = [];
-var allBoxes = [];
-var allBoxLists = [];
+var numberBoxes = [];
+var boxes = [];
+var boxLists = [];
 
-function numberBox(number, box) {
-  allNumberBoxes.push(this);
+var states = [];
+
+var startIndex = 0;
+
+function numberBox(value, box) {
+  this.startIndex = startIndex;
+  startIndex++;
+  numberBoxes.push(this);
   this.pointerOn = false;
-  this.number = number;
+  this.value = value;
   this.rect = s.rect(0, 0, 0, 0);
   this.rect.attr('stroke-width', 0);
-  this.number = s.text(0, 0, number);
+  this.number = s.text(0, 0, value);
   this.number.attr('text-anchor', 'middle');
   this.box = false;
+
+  //THIS IS TEST CODE FOR STEPPING
+  // if (startIndex == 0)
+  // {
+  //   this.path = [[0, 0], [1, 0],[3, 0], [7, 0]];
+  //   startIndex += 1;
+  // }
 
   this.group = s.group(this.rect, this.number);
   this.group.attr({
@@ -37,10 +50,10 @@ function numberBox(number, box) {
 
   this.put = function (box) {
     if (this.box != false)
-        this.box.numberBox = false;
+      this.box.numberBox = false;
 
-      this.box = box;
-      box.numberBox = this;
+    this.box = box;
+    box.numberBox = this;
   }
 
   this.position = function () {
@@ -84,7 +97,7 @@ function numberBox(number, box) {
     var current = this.p;
 		var mouseLoc = {x: mouseEvent.clientX, y: mouseEvent.clientY};
 
-    allBoxes.forEach(function (box) {
+    boxes.forEach(function (box) {
       var boxLoc = box.loc();
       if (isPointOnRect(mouseLoc, boxLoc) && box.numberBox == false) {
         current.pointerOn = box;
@@ -110,7 +123,7 @@ function numberBox(number, box) {
 
 
 function box(index, list) {
-  allBoxes.push(this);
+  boxes.push(this);
   this.numberBox = false;
   this.index = index;
   this.list = list;
@@ -156,10 +169,25 @@ function box(index, list) {
 
 
 function boxList(length, depth) {
-  allBoxLists.push(this);
+  boxLists.push(this);
   this.length = length;
   this.depth = depth;
   this.boxes = [];
+
+  this.left = false;
+  this.right = false;
+
+  this.index = boxLists.length - 1;
+  if (this.index == 0)
+    this.parent = false;
+  else {
+    var parentIndex = Math.floor((this.index-1)/2);
+    this.parent = boxLists[parentIndex];
+    if ((parentIndex+1)*2 == this.index)
+      this.parent.right = this;
+    else
+      this.parent.left = this;
+  }
 
   for (i = 0; i < length; i++) {
     //i-5 is based off the fact that the we need it to be 4 left of center but we
@@ -193,21 +221,14 @@ var drawNumbers = function() {
     }
 
   for (i = 0; i < 8; i++) {
-    new numberBox(ints[i], allBoxLists[0].boxes[i]);
+    new numberBox(ints[i], boxLists[0].boxes[i]);
   }
+
 }
 
 
 var stepForward = function(list) {
-
-  var newList = [];
-  for (i = 0; i < length; i++)
-  {
-    //i-5 is based off the fact that the we need it to be 4 left of center but we
-    //are working from the left side.
-    var newRect = s.rect(center + (size * (i-(length/2))) , (depth-.5)*editorHeight/4, size, size);
-    newList.push(newRect);
-  }
+  numberBoxes.forEach()
   return newList;
 }
 
@@ -231,29 +252,29 @@ new boxList(1, 4);
 new boxList(1, 4);
 
 function positionLists() {
-  allBoxLists[0].position(editorWidth/2 + optionsWidth);
+  boxLists[0].position(editorWidth/2 + optionsWidth);
 
-  allBoxLists[1].position(1*editorWidth/4 + optionsWidth);
-  allBoxLists[2].position(3*editorWidth/4 + optionsWidth);
+  boxLists[1].position(1*editorWidth/4 + optionsWidth);
+  boxLists[2].position(3*editorWidth/4 + optionsWidth);
 
-  allBoxLists[3].position(1*editorWidth/8 + optionsWidth);
-  allBoxLists[4].position(3*editorWidth/8 + optionsWidth);
-  allBoxLists[5].position(5*editorWidth/8 + optionsWidth);
-  allBoxLists[6].position(7*editorWidth/8 + optionsWidth);
+  boxLists[3].position(1*editorWidth/8 + optionsWidth);
+  boxLists[4].position(3*editorWidth/8 + optionsWidth);
+  boxLists[5].position(5*editorWidth/8 + optionsWidth);
+  boxLists[6].position(7*editorWidth/8 + optionsWidth);
 
-  allBoxLists[7].position(1*editorWidth/16 + optionsWidth);
-  allBoxLists[8].position(3*editorWidth/16 + optionsWidth);
-  allBoxLists[9].position(5*editorWidth/16 + optionsWidth);
-  allBoxLists[10].position(7*editorWidth/16 + optionsWidth);
-  allBoxLists[11].position(9*editorWidth/16 + optionsWidth);
-  allBoxLists[12].position(11*editorWidth/16 + optionsWidth);
-  allBoxLists[13].position(13*editorWidth/16 + optionsWidth);
-  allBoxLists[14].position(15*editorWidth/16 + optionsWidth);
+  boxLists[7].position(1*editorWidth/16 + optionsWidth);
+  boxLists[8].position(3*editorWidth/16 + optionsWidth);
+  boxLists[9].position(5*editorWidth/16 + optionsWidth);
+  boxLists[10].position(7*editorWidth/16 + optionsWidth);
+  boxLists[11].position(9*editorWidth/16 + optionsWidth);
+  boxLists[12].position(11*editorWidth/16 + optionsWidth);
+  boxLists[13].position(13*editorWidth/16 + optionsWidth);
+  boxLists[14].position(15*editorWidth/16 + optionsWidth);
 }
 drawNumbers();
 
 function positionNumbers() {
-  allNumberBoxes.forEach(function (numberBox) {
+  numberBoxes.forEach(function (numberBox) {
     numberBox.position();
   });
 }
@@ -271,8 +292,6 @@ function calculateSizes() {
   cellSize = editorWidth*0.040697674418604654; //both width and height
   //0.040697674418604654 is calulated from 70 cell size at my default size
 
-  console.log(cellSize);
-
   positionLists();
   positionNumbers();
 }
@@ -280,3 +299,125 @@ $(window).resize(function () {
   calculateSizes();
 });
 calculateSizes();
+
+
+var index = 0;
+
+$('.step-forward').click(function (event) {
+  if (index == states.length)
+    return;
+
+  var currentNumberBoxes = [];
+  states[index].locations.forEach(function (location, i) {
+    var currentBox = boxLists[location[0]].boxes[location[1]];
+    currentNumberBoxes.push(currentBox.numberBox);
+  });
+
+  index++;
+
+  states[index].locations.forEach(function (location, i) {
+    var nextBox = boxLists[location[0]].boxes[location[1]];
+    currentNumberBoxes[i].put(nextBox);
+    currentNumberBoxes[i].position();
+  });
+
+  console.log(states[index].locations[0], states[index].locations[1], states[index].locations[2], states[index].locations[3]);
+  console.log(index);
+});
+
+$('.step-backward').click(function (event) {
+  if (index == 0)
+    return;
+
+  var currentNumberBoxes = [];
+  states[index].locations.forEach(function (location, i) {
+    var currentBox = boxLists[location[0]].boxes[location[1]];
+    currentNumberBoxes.push(currentBox.numberBox);
+  });
+
+  index--;
+
+  states[index].locations.forEach(function (location, i) {
+    var nextBox = boxLists[location[0]].boxes[location[1]];
+    currentNumberBoxes[i].put(nextBox);
+    currentNumberBoxes[i].position();
+  });
+
+  console.log(states[index].locations[1]);
+  console.log(index);
+});
+
+
+function mergeSort(nB) {
+  if (nB == numberBoxes)
+    saveState();
+
+  // Terminal case: 0 or 1 item arrays don't need sorting
+  if (nB.length < 2)
+    return nB;
+
+  var middle = Math.floor(nB.length / 2);
+  var left = nB.slice(0, middle);
+  var right = nB.slice(middle);
+
+  left.forEach(function (e, i) {
+    var currentBoxList = e.box.list;
+    e.box = currentBoxList.left.boxes[i];
+  });
+
+  saveState();
+
+  right.forEach(function (e, i) {
+    var currentBoxList = e.box.list;
+    e.box = currentBoxList.right.boxes[i];
+  });
+
+  saveState();
+  return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+  var result = [];
+
+  while (left.length || right.length) {
+    if (left.length && right.length) {
+
+      if (left[0].number < right[0].number)
+        result.push(left.shift());
+      else
+        result.push(right.shift());
+
+    } else if (left.length) {
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+
+  result.forEach(function (e, i) {
+    var currentBoxList = e.box.list;
+    if (currentBoxList.parent != false)
+    e.box = currentBoxList.parent.boxes[i];
+  });
+
+  saveState(true);
+
+  return result;
+}
+
+function saveState(test) {
+  var locations = [];
+  numberBoxes.forEach(function (e, i) {
+    if (e.prevBox === undefined)
+      e.prevBox = false;
+
+    locations.push([e.box.list.index, e.box.index]);
+  });
+
+  states.push({
+    locations: locations
+  });
+}
+
+mergeSort(numberBoxes);
+console.log(states);
