@@ -1,5 +1,5 @@
 
-var s = Snap(".editor");
+var s = Snap("#editor");
 
 var list = s.group();
 list.attr({
@@ -58,12 +58,29 @@ function numberBox(value, box) {
 
   this.position = function () {
     var boxLoc = this.box.loc();
-    var matrix = new Snap.Matrix();
-    matrix.translate(boxLoc.start.x, boxLoc.start.y);
+    var points = [boxLoc.start.x, boxLoc.start.y];
+    var matrixCurrent = this.group.transform().localMatrix;
 
-    this.group.attr({
-      transform: matrix
-    });
+    if (matrixCurrent.e == 0) { // hasn't been positioned yet
+      var matrix = new Snap.Matrix();
+      matrix.translate(points[0], points[1]);
+
+      this.group.attr({
+        transform: matrix
+      });
+    } else {
+      var groupCurrent = this.group;
+      var pointsCurrent = [matrixCurrent.e, matrixCurrent.f];
+
+      Snap.animate(pointsCurrent, points, function (val) {
+        var matrix = new Snap.Matrix();
+        matrix.translate(val[0], val[1]);
+
+        groupCurrent.attr({
+          transform: matrix
+        });
+      }, 500, mina.easeinout);
+    }
 
     this.rect.attr({
       width: cellSize,
@@ -137,7 +154,7 @@ function box(index, list) {
   this.position = function () {
     var l = this.list;
     var matrix = new Snap.Matrix();
-    matrix.translate(l.center + (cellSize * (this.index-(l.length/2))), (l.depth-.5)*editorHeight/4);
+    matrix.translate(l.center + (cellSize * (this.index-(l.length/2))), listTop + (l.depth-.5)*editorHeight/4);
 
     this.group.attr({
       transform: matrix
@@ -285,11 +302,11 @@ function positionNumbers() {
 
 
 function calculateSizes() {
-  editorHeight = $(window).height();
-  optionsWidth = $(".options").width() + 45;
-  editorWidth = $(window).width() - optionsWidth;
+  editorHeight = $(window).height() - 200;
+  optionsWidth = $("#options").width();
+  editorWidth = $(window).width() - optionsWidth - 435;
   listTop = editorHeight/10;
-  cellSize = editorWidth*0.040697674418604654; //both width and height
+  cellSize = editorWidth*0.07; //both width and height
   //0.040697674418604654 is calulated from 70 cell size at my default size
 
   positionLists();
@@ -304,47 +321,25 @@ calculateSizes();
 var index = 0;
 
 $('.step-forward').click(function (event) {
-  if (index == states.length)
+  if (index == states.length-1)
     return;
 
-  var currentNumberBoxes = [];
-  states[index].locations.forEach(function (location, i) {
-    var currentBox = boxLists[location[0]].boxes[location[1]];
-    currentNumberBoxes.push(currentBox.numberBox);
-  });
-
   index++;
-
-  states[index].locations.forEach(function (location, i) {
-    var nextBox = boxLists[location[0]].boxes[location[1]];
-    currentNumberBoxes[i].put(nextBox);
-    currentNumberBoxes[i].position();
+  states[index].locations.forEach(function (cBox, i) {
+    numberBoxes[i].put(cBox);
+    numberBoxes[i].position();
   });
-
-  console.log(states[index].locations[0], states[index].locations[1], states[index].locations[2], states[index].locations[3]);
-  console.log(index);
 });
 
 $('.step-backward').click(function (event) {
   if (index == 0)
     return;
 
-  var currentNumberBoxes = [];
-  states[index].locations.forEach(function (location, i) {
-    var currentBox = boxLists[location[0]].boxes[location[1]];
-    currentNumberBoxes.push(currentBox.numberBox);
-  });
-
   index--;
-
-  states[index].locations.forEach(function (location, i) {
-    var nextBox = boxLists[location[0]].boxes[location[1]];
-    currentNumberBoxes[i].put(nextBox);
-    currentNumberBoxes[i].position();
+  states[index].locations.forEach(function (cBox, i) {
+    numberBoxes[i].put(cBox);
+    numberBoxes[i].position();
   });
-
-  console.log(states[index].locations[1]);
-  console.log(index);
 });
 
 
@@ -364,15 +359,14 @@ function mergeSort(nB) {
     var currentBoxList = e.box.list;
     e.box = currentBoxList.left.boxes[i];
   });
-
   saveState();
 
   right.forEach(function (e, i) {
     var currentBoxList = e.box.list;
     e.box = currentBoxList.right.boxes[i];
   });
-
   saveState();
+
   return merge(mergeSort(left), mergeSort(right));
 }
 
@@ -382,7 +376,7 @@ function merge(left, right) {
   while (left.length || right.length) {
     if (left.length && right.length) {
 
-      if (left[0].number < right[0].number)
+      if (left[0].number <= right[0].number)
         result.push(left.shift());
       else
         result.push(right.shift());
@@ -392,26 +386,22 @@ function merge(left, right) {
     } else {
       result.push(right.shift());
     }
-  }
 
-  result.forEach(function (e, i) {
-    var currentBoxList = e.box.list;
+    var i = result.length-1;
+    var currentBoxList = result[i].box.list;
     if (currentBoxList.parent != false)
-    e.box = currentBoxList.parent.boxes[i];
-  });
+      result[i].box = currentBoxList.parent.boxes[i];
 
-  saveState(true);
+    saveState();
+  }
 
   return result;
 }
 
-function saveState(test) {
+function saveState() {
   var locations = [];
   numberBoxes.forEach(function (e, i) {
-    if (e.prevBox === undefined)
-      e.prevBox = false;
-
-    locations.push([e.box.list.index, e.box.index]);
+    locations.push(e.box);
   });
 
   states.push({

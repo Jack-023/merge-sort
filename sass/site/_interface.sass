@@ -1,0 +1,177 @@
+/**
+ * Contains styling for header, options, code and joyride
+ */
+
+/*
+ * Header
+ */
+#header
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	padding: 0 25px
+	background: $dark
+	color: $light
+	z-index: 9999
+
+	#logo
+		float: left
+		height: 50px
+		padding: 15px 0
+
+	#menu
+		float: right
+		list-style: none
+		margin: 0
+
+		li
+			float: left
+			margin-left: 25px
+			padding: 11px 0
+
+			&>label
+				float: left
+				margin-top: 5px
+				margin-right: 10px
+				color: #ccc
+
+		.switch, .range-slider
+			float: right
+			margin-bottom: 0
+
+		.switch
+			label
+				width: 46px
+
+				&:after
+					box-shadow: 0 0 0 1px rgba($dark, 0.15), inset 0 0 0 2px rgba($light, 0.4)
+
+			input:checked+label
+				background: $primary
+
+				&:after
+					left: 22px
+
+		.range-slider
+			width: 60px
+			margin-top: 6px
+
+			.range-slider-handle
+				width: 28px
+				border: 0
+				box-shadow: 0 0 0 1px rgba($dark, 0.15), inset 0 0 0 2px rgba($light, 0.4)
+				background: $primary
+
+			&, .range-slider-active-segment
+				background: #666
+				border-color: transparent
+
+
+.header-spacer
+	position: absolute
+	height: 100%
+	padding-top: 100px
+	top: 0
+	left: 0
+
+	&.right
+		left: auto
+		right: 0
+
+
+/*
+ * Options
+ */
+$options-width: 240px
+
+#options
+	$padding-h: 20px
+
+	position: relative
+	top: 0
+	left: 0
+	height: 100%
+	width: $options-width
+	background: #e5faff
+	z-index: 20
+	overflow: hidden
+	overflow-y: auto
+
+	.box
+		padding: 25px $padding-h 40px
+
+		&.alt
+			background: #fff
+
+		&>*:first-child
+			margin-top: 0
+
+	hr
+		margin-left: -$padding-h
+		margin-right: -$padding-h
+
+	button, .button
+		width: 100%
+		padding: 0 10px
+		border-width: 1px
+		line-height: 52px
+		height: 54px
+		font-size: 30px
+		margin-bottom: 0
+
+	form.row.collapse
+		max-width: 160px
+		margin: 0
+
+		.columns
+			&:not(:last-child)
+				&>*
+					border-right: 0
+					border-top-right-radius: 0
+					border-bottom-right-radius: 0
+			&:last-child
+				&>*
+					border-top-left-radius: 0
+					border-bottom-left-radius: 0
+
+	.heading
+		margin-top: 0
+		margin-bottom: 35px
+
+	.separator
+		margin: 0
+		padding: 10px $padding-h
+		background: $secondary
+		color: #fff
+
+
+/*
+ * Code / prism.js
+ */
+#code
+	position: relative
+	top: 0
+	right: 0
+	height: 100%
+	width: 435px
+	z-index: 15
+	display: block
+	margin: 0
+	padding-left: 25px
+	background: rgba($dark, 0.5)
+	font-size: 14px
+	font-weight: 400
+	overflow: hidden
+	overflow-y: auto
+	border-radius: 0
+
+	&, code[class*="language-"]
+		font-family: $family-mono
+		text-shadow: none !important
+
+	.line-highlight
+		background: rgba($light, 0.2)
+
+		&:before
+			display: none

@@ -4,105 +4,166 @@
 	<title>FIT1008 - Merge Sort</title>
 
 	<!-- Fonts -->
-	<!--link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'-->
-
-	<!-- CSS -->
-	<link rel="stylesheet" href="css/ionicons.css">
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/jquery.growl.css">
-	<link rel="stylesheet" href="css/app.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,900,500,700,100,300|Roboto+Mono:400,100,300,500,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/prism.custom.css">
+	<link rel="stylesheet" href="app.css">
+
 	<!-- JS -->
+	<script src="js/vendor/modernizr.js"></script>
+	<script src="js/vendor/fastclick.js"></script>
 	<script src="js/vendor/jquery-2.1.4.min.js"></script>
 	<script src="js/vendor/underscore-min.js"></script>
-	<script src="js/vendor/jquery.growl.js"></script>
+	<script src="js/vendor/jquery.noty.packaged.js"></script>
+	<script src="js/vendor/prism.custom.js"></script>
 	<script src="js/vendor/snap.svg.js"></script>
 
-</head>
+	<script src="js/vendor/foundation.min.js"></script>
+	<script src="js/vendor/jquery.cookie.js"></script>
 
+</head>
 <body>
 
-	<div class="wrapper">
+<div class="wrapper">
 
-		<div class="options">
-      <h4>Merge Sort</h4>
-			<h5>Step</h5>
-			<button type="button" class="step-backward hollow"><i class="ion-arrow-left-b"></i></button>
-			<button type="button" class="step-forward hollow"><i class="ion-arrow-right-b"></i></button>
-			<!-- <h4>Insert</h4>
-			<form id="insert" class="row collapse">
-				<div class="small-6 columns">
-					<input type="text" id="insert-text" name="search" value="30">
-				</div>
-				<div class="small-6 columns">
-					<button type="submit" class="success hollow"><i class="ion-ios-plus"></i></button>
-				</div>
-			</form>
+	<div id="header">
+		<img src="img/logo.svg" id="logo">
 
-			<hr>
+		<ul id="menu">
+			<li>
+				<label for="notification-switch">Notifications</label>
+				<div class="switch radius small">
+					<input id="notification-switch" type="checkbox" checked>
+					<label for="notification-switch"></label>
+				</div>
+			</li>
 
-			<h4>Search</h4>
-			<form id="search" class="row collapse">
-				<div class="small-6 columns">
-					<input type="text" id="search-text" name="search" value="16">
+			<li>
+				<label>Speed</label>
+				<div id="speed-slider" class="range-slider radius" data-slider data-options="start: 1; end: 3; step: 1;">
+					<span class="range-slider-handle" role="slider" tabindex="0"></span>
+					<span class="range-slider-active-segment"></span>
+					<input id="speed-value" type="hidden">
 				</div>
-				<div class="small-6 columns">
-					<button type="submit" class="hollow"><i class="ion-ios-search-strong"></i></button>
-				</div>
-			</form>
+			</li>
+		</ul>
+	</div>
 
-			<hr>
+	<!-- Options -->
+	<div class="header-spacer">
+		<div id="options" class="animated slideInLeft">
+			<div class="box alt">
+				<h3 class="heading goal-heading animated">Goals <span class="right"><span class="goal-count">0</span>/<span class="goal-max">5</span></span></h3>
 
-			<h4>Remove</h4>
-			<form id="remove" class="row collapse">
-				<div class="small-6 columns">
-					<input type="text" id="remove-text" name="remove" value="16">
-				</div>
-				<div class="small-6 columns">
-					<button type="submit" class="warning hollow"><i class="ion-ios-close"></i></button>
-				</div>
-			</form> -->
+				<h1>Linked Lists</h1>
+				<h2 class="goal-title animated"></h2>
+				<p class="goal-text"></p>
+			</div>
+
+			<h4 class="separator">Functions</h4>
+
+			<div class="box">
+				<button type="button" class="step-backward hollow"><i class="ion-arrow-left-b"></i></button>
+				<button type="button" class="step-forward hollow"><i class="ion-arrow-right-b"></i></button>
+			</div>
 
 		</div>
-
-		<svg class="editor">
-			<!-- Markers, Filters & Animations -->
-			<defs>
-				<marker id="triangle" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="10" markerHeight="10" orient="auto">
-					<path d="M 0 0 L 10 5 L 0 10 z">
-				</marker>
-
-				<filter id="dragging" x="-50%" y="-50%" width="200%" height="200%">
-					<feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-					<feOffset dx="0" dy="6" result="offsetblur"/>
-					<feFlood flood-color="rgba(0,0,0,0.3)"/>
-					<feComposite in2="offsetblur" operator="in"/>
-					<feMerge>
-						<feMergeNode/>
-						<feMergeNode in="SourceGraphic"/>
-					</feMerge>
-				</filter>
-
-				<filter id="highlight" x="-50%" y="-50%" width="200%" height="200%">
-					<feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-					<feOffset dx="0" dy="0" result="offsetblur"/>
-					<feFlood flood-color="#fff"/>
-					<feComposite in2="offsetblur" operator="in"/>
-					<feMerge>
-						<feMergeNode/>
-						<feMergeNode in="SourceGraphic"/>
-					</feMerge>
-				</filter>
-
-			</defs>
-
-			<!-- Base Elements -->
-
-			<!-- Dynamic stuff happens around here -->
-		</svg>
-
 	</div>
+
+	<svg id="editor"></svg>
+
+	<!-- Code -->
+	<div class="header-spacer right">
+		<pre id="code" class="language-python animated slideInRight"><code>class Node(object):
+    def __init__(self, data=None, next=None):
+        self.data = data
+        self.next = next
+
+class LinkedList(object):
+    def __init__(self, head=None):
+        self.head = head
+
+    def insert(self, value):
+        new_node = Node(value)
+        new_node.next(self.head)
+        self.head = new_node
+
+    def search(self, value):
+        current = self.head
+        previous = None
+        index = 0
+        found = False
+
+        # Search by value
+        while current and found is False:
+            if current.value == value:
+                found = True
+            else:
+                previous = current
+                current = current.next
+                index += 1
+
+        if current is not None:
+            return {
+                'current': current,
+                'previous': previous,
+                'index': index
+            }
+        else:
+            print("Value not found in list")
+
+    def delete(self, index):
+        current = self.head
+        previous = None
+        index = 0
+        found = False
+
+        # Search by index
+        while current and found is False:
+            if current.index == index:
+                found = True
+            else:
+                previous = current
+                current = current.next
+                index += 1
+
+        if found:
+            previous.next = current.next
+        else:
+            print("Index not found in list")
+
+</code></pre>
+	</div>
+
+	<div class="joyride-tips">
+		<div id="jr2"></div>
+		<div id="jr3"></div>
+	</div>
+
+	<ol class="joyride-list" data-joyride>
+		<li data-button="Next" data-options="prev_button:false;">
+			<h4>Welcome!</h4>
+			<p>This is an interactive linked list that you can play around with, to understand the data structure better.</p>
+			<p>A short introduction will take you through the features.</p>
+		</li>
+		<li data-id="jr2" data-prev-text="&lsaquo;" data-text="Next" data-options="tip_location:right; nub_position:left;">
+			<h4>Goals &amp; Functions</h4>
+			<p>There are goals that you can complete to familiarize yourself with the concepts.</p>
+			<p>Below the goals, there are functions you can execute on the list. As they are being executed, they will be highlighted on the editor. Use them to complete the goals.</p>
+		</li>
+		<li data-id="jr3" data-prev-text="&lsaquo;" data-text="Finish" data-options="tip_location:left; nub_position:right;">
+			<h4>Code &amp; Notifications</h4>
+			<p>While functions are being executed, they will be reflected in the code by highlighting the line being executed.</p>
+			<p>Along with this, there will be notifications popping up at the bottom of the screen that explain each step.</p>
+			<p class="show-for-large-down"><strong>Your screen is currently too small to view the code. Please use the fullscreen option on Alexandria to be able to view the code highlighter on the right.</strong>
+		</li>
+	</ol>
+
+</div>
 
 	<script src="js/helpers.js"></script>
 	<script src="js/base.js"></script>
