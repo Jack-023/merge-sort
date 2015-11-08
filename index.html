@@ -32,43 +32,25 @@
 
 	<div id="header">
 		<img src="img/logo.svg" id="logo">
-
-		<ul id="menu">
-			<li>
-				<label for="notification-switch">Notifications</label>
-				<div class="switch radius small">
-					<input id="notification-switch" type="checkbox" checked>
-					<label for="notification-switch"></label>
-				</div>
-			</li>
-
-			<li>
-				<label>Speed</label>
-				<div id="speed-slider" class="range-slider radius" data-slider data-options="start: 1; end: 3; step: 1;">
-					<span class="range-slider-handle" role="slider" tabindex="0"></span>
-					<span class="range-slider-active-segment"></span>
-					<input id="speed-value" type="hidden">
-				</div>
-			</li>
-		</ul>
 	</div>
 
 	<!-- Options -->
 	<div class="header-spacer">
 		<div id="options" class="animated slideInLeft">
 			<div class="box alt">
-				<h3 class="heading goal-heading animated">Goals <span class="right"><span class="goal-count">0</span>/<span class="goal-max">5</span></span></h3>
+				<h3 class="heading goal-heading animated">Step: <span class="right"><span class="goal-count">0</span><span class="goal-max"> </span></span></h3>
 
-				<h1>Linked Lists</h1>
+				<h1>Merge Sort</h1>
 				<h2 class="goal-title animated"></h2>
 				<p class="goal-text"></p>
 			</div>
 
-			<h4 class="separator">Functions</h4>
+			<h4 class="separator">Controls</h4>
 
 			<div class="box">
 				<button type="button" class="step-backward hollow"><i class="ion-arrow-left-b"></i></button>
 				<button type="button" class="step-forward hollow"><i class="ion-arrow-right-b"></i></button>
+				<button type="button" class="refresh hollow"><i class="ion-loop"></i></button>
 			</div>
 
 		</div>
@@ -78,63 +60,33 @@
 
 	<!-- Code -->
 	<div class="header-spacer right">
-		<pre id="code" class="language-python animated slideInRight"><code>class Node(object):
-    def __init__(self, data=None, next=None):
-        self.data = data
-        self.next = next
+		<pre id="code" class="language-python animated slideInRight"><code>def merge_sort(list):
+  if (len(list) == 1):
+    return list
 
-class LinkedList(object):
-    def __init__(self, head=None):
-        self.head = head
+  half = int(len(list)/2)
 
-    def insert(self, value):
-        new_node = Node(value)
-        new_node.next(self.head)
-        self.head = new_node
+  left_half = list[:half]
+  right_half = list[half:]
 
-    def search(self, value):
-        current = self.head
-        previous = None
-        index = 0
-        found = False
+  left = merge_sort(left_half)
+  right = merge_sort(right_half)
+  sorted_list = []
 
-        # Search by value
-        while current and found is False:
-            if current.value == value:
-                found = True
-            else:
-                previous = current
-                current = current.next
-                index += 1
+  while (len(left) != 0 or len(right) != 0):
+    if len(right) == 0:
+      sorted_list.append(left[0])
+      del left[0]
 
-        if current is not None:
-            return {
-                'current': current,
-                'previous': previous,
-                'index': index
-            }
-        else:
-            print("Value not found in list")
+    if len(left) != 0 and left[0] <= right[0]:
+      sorted_list.append(left[0])
+      del left[0]
 
-    def delete(self, index):
-        current = self.head
-        previous = None
-        index = 0
-        found = False
+    else:
+      sorted_list.append(right[0])
+      del right[0]
 
-        # Search by index
-        while current and found is False:
-            if current.index == index:
-                found = True
-            else:
-                previous = current
-                current = current.next
-                index += 1
-
-        if found:
-            previous.next = current.next
-        else:
-            print("Index not found in list")
+  return sorted_list
 
 </code></pre>
 	</div>

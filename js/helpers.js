@@ -25,52 +25,16 @@ var isEmpty = function (obj) {
 
 // Get group element by node
 
-/* Geometry */
 
-// Closest point on rectangle point a given point
-function nearestRectPoint(point, rect) {
-	var loc = {};
-	loc.x = minXDistance(point, rect);
-	loc.y = minYDistance(point, rect);
 
-	return loc;
-}
-function minXDistance(point, rect) {
-	if (rect.start.x > point.x)
-		return rect.start.x;
-	else if (rect.end.x < point.x)
-		return rect.end.x;
-	else
-		return point.x;
-}
-function minYDistance(point, rect) {
-	if (rect.start.y > point.y)
-		return rect.start.y;
-	else if (rect.end.y < point.y)
-		return rect.end.y;
-	else
-		return point.y;
-}
+function highlightCode(range) {
+	$code.attr('data-line', range);
+	Prism.highlightElement(codeEl);
 
-function isPointOnRect(point, rect) {
-	if ( rect.start.y < point.y && rect.end.y > point.y
-		 && rect.start.x < point.x && rect.end.x > point.x )
-		return true;
-	else
-		return false;
-}
+	var lineHighlight = $('.line-highlight:first');
+	var offset = lineHighlight.offset().top + $code.scrollTop() - $code.offset().top;
 
-var findDuplicates = function(list){
-	var seen = [];
-	var result = [];
-
-	list.forEach(function (item) {
-		seen.forEach(function (item_seen) {
-			if (item == item_seen)
-				result.push(item);
-		});
-		seen.push(item);
-	});
-
-	return result;
-}
+	$code.animate({
+		scrollTop: offset
+	}, 300);
+};

@@ -11,6 +11,8 @@ var editorWidth;
 var listTop;
 var cellSize;
 
+var $goalCount = $('.goal-count');
+
 var currentStep = 0;
 
 var listOrder = [];
@@ -24,7 +26,8 @@ var states = [];
 var startIndex = 0;
 
 function numberBox(value, box) {
-  this.startIndex = startIndex;
+  this.initIndex = s.text(0, 0, startIndex);
+  this.initIndex.attr('text-anchor', 'middle');
   startIndex++;
   numberBoxes.push(this);
   this.pointerOn = false;
@@ -88,6 +91,12 @@ function numberBox(value, box) {
     });
 
     this.number.attr({
+      x: cellSize/2,
+      y: cellSize - cellSize/5,
+      'font-size': cellSize * .8
+    });
+
+    this.initIndex.attr({
       x: cellSize/2,
       y: cellSize - cellSize/5,
       'font-size': cellSize * .8
@@ -244,10 +253,7 @@ var drawNumbers = function() {
 }
 
 
-var stepForward = function(list) {
-  numberBoxes.forEach()
-  return newList;
-}
+
 
 new boxList(8, 1);
 
@@ -314,6 +320,7 @@ function calculateSizes() {
 }
 $(window).resize(function () {
   calculateSizes();
+  positionNumbers();
 });
 calculateSizes();
 
@@ -329,6 +336,7 @@ $('.step-forward').click(function (event) {
     numberBoxes[i].put(cBox);
     numberBoxes[i].position();
   });
+  $goalCount.html(index);
 });
 
 $('.step-backward').click(function (event) {
@@ -340,8 +348,28 @@ $('.step-backward').click(function (event) {
     numberBoxes[i].put(cBox);
     numberBoxes[i].position();
   });
+  $goalCount.html(index);
 });
 
+$('.refresh').click(function (event) {
+  index = 0;
+
+  currentStep = 0;
+
+  listOrder = [];
+
+  numberBoxes = [];
+
+  states = [];
+
+  startIndex = 0;
+
+  drawNumbers();
+
+  saveState();
+
+  $goalCount.html(index);
+});
 
 function mergeSort(nB) {
   if (nB == numberBoxes)
@@ -405,7 +433,9 @@ function saveState() {
   });
 
   states.push({
-    locations: locations
+    locations: locations,
+    highlights: '2-5,10,',
+
   });
 }
 
