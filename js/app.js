@@ -38,10 +38,10 @@ function numberBox(value, box) {
   this.number.attr('text-anchor', 'middle');
   this.box = false;
 
-  this.initIndex = s.text(0, 0, startIndex);
-  this.initIndex.attr('text-anchor', 'right');
-  this.initIndex.attr('opacity', '1')
-  startIndex++;
+  // this.initIndex = s.text(0, 0, startIndex);
+  // this.initIndex.attr('text-anchor', 'right');
+  // this.initIndex.attr('opacity', '1')
+  // startIndex++;
 
   this.group = s.group(this.rect, this.number);
   this.group.attr({
@@ -94,11 +94,11 @@ function numberBox(value, box) {
       'font-size': cellSize * .8
     });
 
-    this.initIndex.attr({
-      x: cellSize/2,
-      y: cellSize - cellSize/5,
-      'font-size': cellSize * .8
-    });
+    // this.initIndex.attr({
+    //   x: cellSize/2,
+    //   y: cellSize - cellSize/5,
+    //   'font-size': cellSize * .8
+    // });
   };
 
 
