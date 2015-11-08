@@ -1,9 +1,9 @@
-
 var s = Snap("#editor");
 var $code = $('#code');
 var codeEl = $('#code code')[0];
 
 var list = s.group();
+
 list.attr({
     class: 'list'
 });
@@ -302,7 +302,7 @@ $('.step-forward').click(function (event) {
     numberBoxes[i].put(cBox);
     numberBoxes[i].position();
   });
-  highlightCode(states[index].highlights)
+  highlightCode(states[index].highlights);
   $goalCount.html(index);
 });
 
@@ -315,6 +315,7 @@ $('.step-backward').click(function (event) {
     numberBoxes[i].put(cBox);
     numberBoxes[i].position();
   });
+  highlightCode(states[index].highlights);
   $goalCount.html(index);
 });
 
@@ -327,9 +328,8 @@ $('.refresh').click(function (event) {
     numberBox.number.remove();
   });
 
+
   numberBoxes = [];
-  boxes = [];
-  boxLists = [];
 
   states = [];
 
@@ -342,12 +342,17 @@ $('.refresh').click(function (event) {
 
   mergeSort(numberBoxes);
 
+  states[index].locations.forEach(function (cBox, i) {
+    numberBoxes[i].put(cBox);
+    numberBoxes[i].position();
+  });
+  highlightCode(states[index].highlights);
   $goalCount.html(index);
 });
 
 function mergeSort(nB) {
   if (nB == numberBoxes)
-    saveState();
+    saveState('1');
 
   // Terminal case: 0 or 1 item arrays don't need sorting
   if (nB.length < 2)
@@ -361,27 +366,35 @@ function mergeSort(nB) {
     var currentBoxList = e.box.list;
     e.box = currentBoxList.left.boxes[i];
   });
-  saveState();
+  if (index <= 6) {
+    saveState('1, 5, 7')
+  }
+  else {
+    saveState('0');
+  }
 
   right.forEach(function (e, i) {
     var currentBoxList = e.box.list;
     e.box = currentBoxList.right.boxes[i];
   });
-  saveState();
+  saveState('1, 5, 8, 10');
 
   return merge(mergeSort(left), mergeSort(right));
 }
 
 function merge(left, right) {
   var result = [];
-
+  var lines = '0' //this should only ever be 0 at the end if we do something wrong
   while (left.length || right.length) {
     if (left.length && right.length) {
 
-      if (left[0].number <= right[0].number)
+      if (left[0].number <= right[0].number) {
         result.push(left.shift());
-      else
+        lines = ''
+      }
+      else {
         result.push(right.shift());
+      }
 
     } else if (left.length) {
       result.push(left.shift());
@@ -394,13 +407,13 @@ function merge(left, right) {
     if (currentBoxList.parent != false)
       result[i].box = currentBoxList.parent.boxes[i];
 
-    saveState();
+    saveState(lines)
   }
 
   return result;
 }
 
-function saveState() {
+function saveState(lines) {
   var locations = [];
   numberBoxes.forEach(function (e, i) {
     locations.push(e.box);
@@ -408,10 +421,18 @@ function saveState() {
 
   states.push({
     locations: locations,
-    highlights: '1-3',
+    highlights: lines,
 
   });
 }
 
 mergeSort(numberBoxes);
+
 console.log(states);
+
+states[index].locations.forEach(function (cBox, i) {
+  numberBoxes[i].put(cBox);
+  numberBoxes[i].position();
+});
+
+highlightCode('1');
