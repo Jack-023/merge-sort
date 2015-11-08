@@ -390,16 +390,21 @@ function merge(left, right) {
 
       if (left[0].number <= right[0].number) {
         result.push(left.shift());
-        lines = ''
+        lines = '14, 19-21';
       }
       else {
         result.push(right.shift());
+        lines = '14, 23-25';
       }
 
-    } else if (left.length) {
+    }
+    else if (left.length) {
       result.push(left.shift());
-    } else {
+      lines = '14-17';
+    }
+    else {
       result.push(right.shift());
+      lines = '14, 23-25';
     }
 
     var i = result.length-1;
