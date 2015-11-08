@@ -37,24 +37,6 @@
 			.inner
 				transform: scale(1) translate(0, 0)
 
-			// Head
-			&#head
-				rect:nth-of-type(1), text
-					display: none
-
-			// Active states
-			&.dragging
-				filter: url('#dragging')
-
-				.inner
-					transform: scale(1.05)
-
-				rect
-					&:nth-of-type(2)
-						fill: rgba($light, 0.2)
-
-				circle
-					fill: $light
 
 			&.highlight
 				filter: url('#highlight')

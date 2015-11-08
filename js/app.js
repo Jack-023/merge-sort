@@ -28,9 +28,6 @@ var states = [];
 var startIndex = 0;
 
 function numberBox(value, box) {
-  this.initIndex = s.text(0, 0, startIndex);
-  this.initIndex.attr('text-anchor', 'right');
-  startIndex++;
   numberBoxes.push(this);
   this.pointerOn = false;
   this.value = value;
@@ -40,6 +37,11 @@ function numberBox(value, box) {
   this.number.attr('text-anchor', 'middle');
   this.box = false;
 
+  var myIndex = startIndex;
+  this.initIndex = s.text(0, 0, myIndex);
+  this.initIndex.attr('text-anchor', 'right');
+  this.initIndex.attr('opacity', '1')
+  startIndex++;
   //THIS IS TEST CODE FOR STEPPING
   // if (startIndex == 0)
   // {
