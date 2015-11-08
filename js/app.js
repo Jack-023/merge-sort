@@ -372,7 +372,7 @@ function mergeSort(nB) {
     var currentBoxList = e.box.list;
     e.box = currentBoxList.right.boxes[i];
   });
-  saveState('1, 5, 8, 10');
+  saveState('1, 8, 10');
 
   return merge(mergeSort(left), mergeSort(right));
 }
