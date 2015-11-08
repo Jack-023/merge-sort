@@ -38,3 +38,12 @@ function highlightCode(range) {
 		scrollTop: offset
 	}, 300);
 };
+
+// Joyride setup
+$(document).foundation({
+	joyride: {
+		cookie_monster: true,
+		tip_animation_fade_speed : 200
+	}
+});
+$(document).foundation('joyride', 'start');

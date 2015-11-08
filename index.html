@@ -92,6 +92,7 @@
 	</div>
 
 	<div class="joyride-tips">
+		<div id="jr1"></div>
 		<div id="jr2"></div>
 		<div id="jr3"></div>
 	</div>
@@ -99,23 +100,31 @@
 	<ol class="joyride-list" data-joyride>
 		<li data-button="Next" data-options="prev_button:false;">
 			<h4>Welcome!</h4>
-			<p>This is an interactive linked list that you can play around with, to understand the data structure better.</p>
+			<p>This is an interactive merge sort demonstration that you can play around with, to understand the algorithm better.</p>
 			<p>A short introduction will take you through the features.</p>
 		</li>
+		<li data-id="jr1" data-prev-text="&lsaquo;" data-text="Next" data-options="tip_location:right; nub_position:left;">
+			<h4>The Editor</h4>
+			<p>Here you will see the list elements being modified as the algorithm is executed.</p>
+			<p>Below each list is the 'left_half' and 'right_half' lists for each call of the merge sort.</p>
+		</li>
 		<li data-id="jr2" data-prev-text="&lsaquo;" data-text="Next" data-options="tip_location:right; nub_position:left;">
-			<h4>Goals &amp; Functions</h4>
-			<p>There are goals that you can complete to familiarize yourself with the concepts.</p>
-			<p>Below the goals, there are functions you can execute on the list. As they are being executed, they will be highlighted on the editor. Use them to complete the goals.</p>
+			<h4>Controls &amp; Step Counter</h4>
+			<p>Here you can see the current step.</p>
+			<p>Below are the controls. You can step forward and back through the sort, and refresh to get a new list.</p>
 		</li>
 		<li data-id="jr3" data-prev-text="&lsaquo;" data-text="Finish" data-options="tip_location:left; nub_position:right;">
-			<h4>Code &amp; Notifications</h4>
-			<p>While functions are being executed, they will be reflected in the code by highlighting the line being executed.</p>
-			<p>Along with this, there will be notifications popping up at the bottom of the screen that explain each step.</p>
+			<h4>Code</h4>
+			<p>While the sort is being executed, the python code here will highlight to show the what is currently happening.</p>
+			<!-- <p>Along with this, there will be notifications popping up at the bottom of the screen that explain each step.</p> -->
 			<p class="show-for-large-down"><strong>Your screen is currently too small to view the code. Please use the fullscreen option on Alexandria to be able to view the code highlighter on the right.</strong>
 		</li>
 	</ol>
 
 </div>
+
+<!-- Fullscreen alert -->
+<div class="fullscreen-alert animated fadeInDown">Please switch this interactive to fullscreen for a better experience.</div>
 
 	<script src="js/helpers.js"></script>
 	<script src="js/app.js"></script>
