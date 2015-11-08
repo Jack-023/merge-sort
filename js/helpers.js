@@ -42,7 +42,7 @@ function highlightCode(range) {
 // Joyride setup
 $(document).foundation({
 	joyride: {
-		cookie_monster: true,
+		// cookie_monster: true,
 		tip_animation_fade_speed : 200
 	}
 });
