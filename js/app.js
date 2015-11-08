@@ -37,17 +37,10 @@ function numberBox(value, box) {
   this.number.attr('text-anchor', 'middle');
   this.box = false;
 
-  var myIndex = startIndex;
-  this.initIndex = s.text(0, 0, myIndex);
+  this.initIndex = s.text(0, 0, startIndex);
   this.initIndex.attr('text-anchor', 'right');
   this.initIndex.attr('opacity', '1')
   startIndex++;
-  //THIS IS TEST CODE FOR STEPPING
-  // if (startIndex == 0)
-  // {
-  //   this.path = [[0, 0], [1, 0],[3, 0], [7, 0]];
-  //   startIndex += 1;
-  // }
 
   this.group = s.group(this.rect, this.number);
   this.group.attr({
