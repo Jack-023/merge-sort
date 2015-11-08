@@ -10,6 +10,7 @@ list.attr({
 var editorHeight;
 var optionsWidth;
 var editorWidth;
+var codeWidth;
 var listTop;
 var cellSize;
 
@@ -269,9 +270,10 @@ function positionNumbers() {
 
 
 function calculateSizes() {
-  editorHeight = $(window).height() - 200;
+  editorHeight = $(window).height() * .8;
   optionsWidth = $("#options").width();
-  editorWidth = $(window).width() - optionsWidth - 435;
+  codeWidth = $code.width() + 25;
+  editorWidth = $(window).width() - optionsWidth - codeWidth - 10;
   listTop = editorHeight/10;
   cellSize = editorWidth*0.07; //both width and height
   //0.040697674418604654 is calulated from 70 cell size at my default size
