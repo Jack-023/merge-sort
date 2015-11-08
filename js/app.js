@@ -27,7 +27,7 @@ var startIndex = 0;
 
 function numberBox(value, box) {
   this.initIndex = s.text(0, 0, startIndex);
-  this.initIndex.attr('text-anchor', 'middle');
+  this.initIndex.attr('text-anchor', 'right');
   startIndex++;
   numberBoxes.push(this);
   this.pointerOn = false;
@@ -103,45 +103,6 @@ function numberBox(value, box) {
     });
   };
 
-  this.group.drag(function(dx, dy, posX, posY, e) {
-    // Drag move
-    var current = this.p;
-
-    this.attr({
-      transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
-    });
-
-  }, function() {
-    var current = this.p;
-    // Drag start
-    this.data('origTransform', this.transform().local );
-
-    current.pointerOn = false;
-
-  }, function (mouseEvent) {
-    // Drag end
-    var current = this.p;
-		var mouseLoc = {x: mouseEvent.clientX, y: mouseEvent.clientY};
-
-    boxes.forEach(function (box) {
-      var boxLoc = box.loc();
-      if (isPointOnRect(mouseLoc, boxLoc) && box.numberBox == false) {
-        current.pointerOn = box;
-      }
-    });
-
-    if (current.pointerOn != false) {
-      var boxLoc = current.pointerOn.loc();
-      var matrix = new Snap.Matrix();
-      matrix.translate(boxLoc.start.x, boxLoc.start.y);
-      current.put(current.pointerOn);
-      current.position();
-    } else {
-      this.attr({
-        transform: this.data('origTransform')
-      });
-    }
-  });
 
   // Just do it?
   this.put(box);
@@ -254,25 +215,28 @@ var drawNumbers = function() {
 
 
 
+function createBoxes()
+{
+  new boxList(8, 1);
 
-new boxList(8, 1);
+  new boxList(4, 2);
+  new boxList(4, 2);
 
-new boxList(4, 2);
-new boxList(4, 2);
+  new boxList(2, 3);
+  new boxList(2, 3);
+  new boxList(2, 3);
+  new boxList(2, 3);
 
-new boxList(2, 3);
-new boxList(2, 3);
-new boxList(2, 3);
-new boxList(2, 3);
-
-new boxList(1, 4);
-new boxList(1, 4);
-new boxList(1, 4);
-new boxList(1, 4);
-new boxList(1, 4);
-new boxList(1, 4);
-new boxList(1, 4);
-new boxList(1, 4);
+  new boxList(1, 4);
+  new boxList(1, 4);
+  new boxList(1, 4);
+  new boxList(1, 4);
+  new boxList(1, 4);
+  new boxList(1, 4);
+  new boxList(1, 4);
+  new boxList(1, 4);
+}
+createBoxes();
 
 function positionLists() {
   boxLists[0].position(editorWidth/2 + optionsWidth);
@@ -352,21 +316,29 @@ $('.step-backward').click(function (event) {
 });
 
 $('.refresh').click(function (event) {
-  index = 0;
-
   currentStep = 0;
 
   listOrder = [];
 
+  numberBoxes.forEach(function (numberBox) {
+    numberBox.number.attr('color', 'rgba(255, 255, 255, 0)')
+    console.log(numberBox.number)
+  });
+
   numberBoxes = [];
+  boxes = [];
+  boxLists = [];
 
   states = [];
 
   startIndex = 0;
+  index = 0;
 
+  createBoxes();
   drawNumbers();
+  calculateSizes();
 
-  saveState();
+  mergeSort(numberBoxes);
 
   $goalCount.html(index);
 });
