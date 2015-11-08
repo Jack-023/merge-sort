@@ -39,11 +39,20 @@ function highlightCode(range) {
 	}, 300);
 };
 
-// Joyride setup
+
+/* Joyride setup */
 $(document).foundation({
 	joyride: {
-		// cookie_monster: true,
+		cookie_monster: false,
 		tip_animation_fade_speed : 200
 	}
 });
 $(document).foundation('joyride', 'start');
+
+// Joyride restart
+$('a[data-joyride-restart]').on('click', function (e){
+e.preventDefault();
+	$(document).foundation({
+		joyride : { 'cookie_monster': false }
+	}).foundation().foundation('joyride', 'start');
+});
