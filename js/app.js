@@ -1,5 +1,7 @@
 
 var s = Snap("#editor");
+var $code = $('#code');
+var codeEl = $('#code code')[0];
 
 var list = s.group();
 list.attr({
@@ -300,6 +302,7 @@ $('.step-forward').click(function (event) {
     numberBoxes[i].put(cBox);
     numberBoxes[i].position();
   });
+  highlightCode(states[index].highlights)
   $goalCount.html(index);
 });
 
@@ -321,8 +324,7 @@ $('.refresh').click(function (event) {
   listOrder = [];
 
   numberBoxes.forEach(function (numberBox) {
-    numberBox.number.attr('color', 'rgba(255, 255, 255, 0)')
-    console.log(numberBox.number)
+    numberBox.number.remove();
   });
 
   numberBoxes = [];
@@ -406,7 +408,7 @@ function saveState() {
 
   states.push({
     locations: locations,
-    highlights: '2-5,10,',
+    highlights: '1-3',
 
   });
 }
